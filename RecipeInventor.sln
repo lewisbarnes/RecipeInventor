@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RecipeInventor", "RecipeInventor\RecipeInventor.csproj", "{934E106D-FDBD-4F1B-A6DB-B7061A644D29}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{934E106D-FDBD-4F1B-A6DB-B7061A644D29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{934E106D-FDBD-4F1B-A6DB-B7061A644D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{934E106D-FDBD-4F1B-A6DB-B7061A644D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{934E106D-FDBD-4F1B-A6DB-B7061A644D29}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E68A9CAC-3E79-423D-A3C5-FE69191B0D1A}
+	EndGlobalSection
+EndGlobal
