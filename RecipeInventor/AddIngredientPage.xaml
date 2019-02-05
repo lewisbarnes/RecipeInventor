@@ -1,0 +1,44 @@
+﻿<Page x:Class="RecipeInventor.AddIngredientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RecipeInventor"
+      mc:Ignorable="d" 
+      d:DesignHeight="411" d:DesignWidth="800"
+      Title="AddIngredientPage">
+
+    <Grid Background="LightBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Background="CadetBlue" Margin="0 0 0 3" BorderThickness="0" Grid.Row="1"  Grid.Column="1">Type Of Ingredient</Label>
+        <Label Background="SkyBlue" BorderThickness="0" Foreground="Black" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">Add Ingredient</Label>
+        <Label Background="CadetBlue" Margin="0 0 0 3" BorderThickness="0" Grid.Row="2" Grid.Column="1">Name</Label>
+        <Label Background="CadetBlue" Margin="0 0 0 3" BorderThickness="0" Grid.Row="3"  Grid.Column="1">Flavour Profiles</Label>
+        <Label Background="CadetBlue" Margin="0 0 0 3" BorderThickness="0" Grid.Row="4"  Grid.Column="1">Typical Quantity</Label>
+        <TextBox Name="IngredientNameTextBox" VerticalContentAlignment="Center" Margin="0 0 0 3" BorderThickness="0" Grid.Row="2" Grid.Column="2"/>
+        <TextBox Name="FlavourProfilesTextBox" VerticalContentAlignment="Center" Margin="0 0 0 3" BorderThickness="0" Grid.Row="3" Grid.Column="2"/>
+        <ComboBox Name="IngredientTypeCombo" Grid.Row="1" Grid.Column="2" Width="Auto" Margin="0 0 0 3" BorderThickness="0"></ComboBox>
+        <DockPanel Grid.Row="4" Grid.Column="2">
+            <TextBox Name="TypicalQuantityTextBox" Margin="0 0 0 3" BorderThickness="0" Width="250" />
+            <ComboBox x:Name="MeasuringUnitCombo" Margin="0 0 0 3" BorderThickness="0" Width="Auto"></ComboBox>
+        </DockPanel>
+        <StackPanel Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2">
+            <TextBlock Name="InfoBlock" Background="White"/>
+            <Button Background="LightSeaGreen" Name="btnSaveIngredient" Click="SaveIngredient_Click">Save Ingredient</Button>
+        </StackPanel>
+
+    </Grid>
+</Page>

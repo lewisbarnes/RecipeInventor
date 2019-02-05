@@ -1,17 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using RecipeInventor.ViewModels;
+using System.Windows.Shell;
 
 namespace RecipeInventor
 {
@@ -23,6 +16,45 @@ namespace RecipeInventor
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+        private void TitleBar_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Application.Current.MainWindow.DragMove();
+        }
+
+        private void MinimiseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.WindowState == WindowState.Normal)
+            {
+                this.WindowState = WindowState.Minimized;
+            }
+            
+        }
+
+        private void IngredientsLink_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.NavigationService.Navigate(new Uri("IngredientsView.xaml", UriKind.Relative));
+        }
+
+        private void RecipesLink_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.NavigationService.Navigate(new Uri("RecipesView.xaml", UriKind.Relative));
+        }
+
+        private void FlavoursLink_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.NavigationService.Navigate(new Uri("IngredientsView.xaml", UriKind.Relative));
+        }
+
+        private void StatsLink_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.NavigationService.Navigate(new Uri("IngredientStatisticsView.xaml", UriKind.Relative));
         }
     }
 }
