@@ -33,11 +33,6 @@
                 </Hyperlink>
             </TextBlock>
             <TextBlock HorizontalAlignment="Center" Padding="2">
-                <Hyperlink Name="FlavoursLink" Click="FlavoursLink_Click">
-                    Flavours
-                </Hyperlink>
-            </TextBlock>
-            <TextBlock HorizontalAlignment="Center" Padding="2">
                 <Hyperlink Name="StatsLink" Click="StatsLink_Click">
                     Statistics
                 </Hyperlink>

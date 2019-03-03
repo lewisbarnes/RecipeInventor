@@ -16,18 +16,33 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Background="SkyBlue" Foreground="Black" Grid.Row="0" Grid.ColumnSpan= "2 " Grid.Column="1" Content="{Binding Path=Title}"></Label>
         <StackPanel Grid.Column="1" Grid.Row="1" Background="LightBlue">
             <Label>Ingredient Name</Label>
-            <Label>Typical Quantity</Label>
+            <Label>Mean Quantity</Label>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="1" Background="LightBlue">
             <Label Content="{Binding Path=Name}"></Label>
             <Label Content="{Binding Path=Quantity}"></Label>
         </StackPanel>
-        <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Foreground="White" Background="LightSeaGreen" Click="EditIngredient_Click" BorderThickness="0">Edit Ingredient</Button>
+        <DataGrid Name="IngredientComplements" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" Background="SkyBlue" 
+                  CanUserResizeRows="False" CanUserResizeColumns="False" IsHitTestVisible="False" VerticalScrollBarVisibility="Disabled" HeadersVisibility="Column">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Ingredient Name" Binding="{Binding IngredientName}" Width="*" />
+                <DataGridTextColumn Header="Compatibility" Binding="{Binding Compatibility}" Width="*"/>
+            </DataGrid.Columns>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="Background" Value="SkyBlue"/>
+                    <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                    <Setter Property="BorderBrush" Value="Black"/>
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Foreground="White" Background="LightSeaGreen" Click="EditIngredient_Click" BorderThickness="0">Edit Ingredient</Button>
     </Grid>
 </Page>

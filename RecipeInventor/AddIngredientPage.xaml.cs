@@ -26,10 +26,6 @@ namespace RecipeInventor
         public AddIngredientPage()
         {
             InitializeComponent();
-            foreach (MeasuringUnits u in Enum.GetValues(typeof(MeasuringUnits)))
-            {
-                MeasuringUnitCombo.Items.Add(u);
-            }
             foreach(IngredientType i in Enum.GetValues(typeof(IngredientType)))
             {
                 IngredientTypeCombo.Items.Add(i);
@@ -41,14 +37,11 @@ namespace RecipeInventor
             List<ErrorCodes> errors = new List<ErrorCodes>();
             StringBuilder sb = new StringBuilder();
 
-            if (MeasuringUnitCombo.SelectedItem == null) errors.Add(ErrorCodes.MEASURINGUNITNOTSELECTED);
-            if (TypicalQuantityTextBox.Text == String.Empty) errors.Add(ErrorCodes.EMPTYQUANTITYFIELD);
             if(IngredientNameTextBox.Text == String.Empty) errors.Add(ErrorCodes.EMPTYNAMEFIELD);
             if(errors.Count == 0)
             {
                 var tempIngredient = new Ingredient();
-                tempIngredient.SetAttributes(IngredientNameTextBox.Text, (IngredientType)IngredientTypeCombo.SelectedItem, null,
-                    Convert.ToDouble(TypicalQuantityTextBox.Text), (MeasuringUnits)MeasuringUnitCombo.SelectedItem);
+                tempIngredient.SetAttributes(IngredientNameTextBox.Text, (IngredientType)IngredientTypeCombo.SelectedItem);
                 DataManager.SaveIngredient(tempIngredient);
                 InfoBlock.Foreground = new SolidColorBrush(Colors.Green);
                 InfoBlock.Text = $"SUCCESSFULLY SAVED \"{tempIngredient.Name}\"";

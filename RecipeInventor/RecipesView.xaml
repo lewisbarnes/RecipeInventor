@@ -15,16 +15,16 @@
         <Grid.RowDefinitions>
 
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
+            <RowDefinition  />
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Label Background="SkyBlue" Foreground="Black" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Recipes</Label>
-        <ListBox Foreground="Black" BorderThickness="0" Background="LightBlue" Grid.Row="1" Grid.ColumnSpan="2" Name="RecipeList" DisplayMemberPath="Name" Height="343"/>
+        <ListBox Foreground="Black" BorderThickness="0" Background="LightBlue" Grid.Row="1" Grid.ColumnSpan="2" Name="RecipeList" DisplayMemberPath="Name" MouseDoubleClick="RecipeList_MouseDoubleClick"/>
         <StackPanel Grid.Row="2">
             <TextBlock Name="InfoBlock" Background="White"/>
             <StackPanel Orientation="Horizontal" >
-                <Button x:Name="btnAddIngredient" Width="368" Content="Add Recipe" Height="26" Background="LightSeaGreen" BorderThickness="0"/>
-                <Button x:Name="btnRemoveIngredient" Width="368" Content="Remove Recipe" Height="26" Background="SeaGreen" BorderThickness="0"/>
+                <Button x:Name="btnAddRecipe" Width="368" Content="Add Recipe" Background="LightSeaGreen" BorderThickness="0" Click="btnAddRecipe_Click"/>
+                <Button x:Name="btnRemoveRecipe" Width="368" Content="Remove Recipe" Background="SeaGreen" BorderThickness="0" Click="btnRemoveRecipe_Click"/>
             </StackPanel>
         </StackPanel>
 

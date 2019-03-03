@@ -27,17 +27,12 @@ namespace RecipeInventor
             
             ingredientToEdit = ingredient;
             InitializeComponent();
-            foreach (MeasuringUnits u in Enum.GetValues(typeof(MeasuringUnits)))
-            {
-                MeasuringUnitCombo.Items.Add(u);
-            }
             foreach (IngredientType i in Enum.GetValues(typeof(IngredientType)))
             {
                 IngredientTypeCombo.Items.Add(i);
                 
             }
             DataContext = ingredientToEdit;
-            TypicalQuantityTextBox.Text = ingredientToEdit.TypicallyUsedQuantity.ToString();
 
         }
 
@@ -45,14 +40,10 @@ namespace RecipeInventor
         {
             List<ErrorCodes> errors = new List<ErrorCodes>();
             StringBuilder sb = new StringBuilder();
-
-            if (MeasuringUnitCombo.SelectedItem == null) errors.Add(ErrorCodes.MEASURINGUNITNOTSELECTED);
-            if (TypicalQuantityTextBox.Text == String.Empty) errors.Add(ErrorCodes.EMPTYQUANTITYFIELD);
             if (IngredientNameTextBox.Text == String.Empty) errors.Add(ErrorCodes.EMPTYNAMEFIELD);
             if (errors.Count == 0)
             {
-                ingredientToEdit.SetAttributes(IngredientNameTextBox.Text, (IngredientType)IngredientTypeCombo.SelectedItem, null,
-                    Convert.ToDouble(TypicalQuantityTextBox.Text), (MeasuringUnits)MeasuringUnitCombo.SelectedItem);
+                ingredientToEdit.SetAttributes(IngredientNameTextBox.Text, (IngredientType)IngredientTypeCombo.SelectedItem);
                 DataManager.UpdateIngredient(ingredientToEdit);
                 InfoBlock.Foreground = new SolidColorBrush(Colors.Green);
                 InfoBlock.Text = $"SUCCESSFULLY EDITED \"{ingredientToEdit.Name}\"";

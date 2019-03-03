@@ -10,25 +10,24 @@
 
     <Grid Background="DarkGray">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition />
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <StackPanel Grid.Column="1" Background="DarkGray">
-            <Label Background="SkyBlue" Foreground="Black" BorderThickness="0" Grid.Row="0" Grid.Column="1">Ingredients</Label>
-            <ListBox Foreground="Black" BorderThickness="0" Background="LightBlue" Grid.Column="1" Name="IngredientList" MouseDoubleClick="IngredientListItem_Click" DisplayMemberPath="Name" Height="343">
+      
+            <Label Background="SkyBlue" Foreground="Black" BorderThickness="0" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Ingredients</Label>
+            <ListBox Foreground="Black" BorderThickness="0" Background="LightBlue" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Name="IngredientList" MouseDoubleClick="IngredientListItem_Click" DisplayMemberPath="Name" >
             </ListBox>
-            <StackPanel >
-                <TextBlock Name="InfoBlock" Background="White"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btnAddIngredient" Width="368" Content="Add Ingredient" Click="AddIngredient_Click" Height="26" Background="LightSeaGreen" BorderThickness="0"/>
-                    <Button x:Name="btnRemoveIngredient" Width="368" Content="Remove Ingredient" Click="RemoveIngredient_Click" Height="26" Background="SeaGreen" BorderThickness="0"/>
-                </StackPanel>
+        <StackPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBlock Name="InfoBlock" Background="White"/>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnAddIngredient" Width="368" Content="Add Ingredient" Click="AddIngredient_Click" Background="LightSeaGreen" BorderThickness="0"/>
+                <Button x:Name="btnRemoveIngredient" Width="368" Content="Remove Ingredient" Click="RemoveIngredient_Click" Background="SeaGreen" BorderThickness="0"/>
             </StackPanel>
-            
         </StackPanel>
 
     </Grid>

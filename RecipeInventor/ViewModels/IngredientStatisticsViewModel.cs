@@ -9,10 +9,10 @@ namespace RecipeInventor.ViewModels
 {
     public class IngredientStatisticsViewModel
     {
-        public List<IngredientStatistics> Statistics { get; private set; }
+        public List<Ingredient> Statistics { get; set; }
         public IngredientStatisticsViewModel()
         {
-            Statistics = DataManager.GetIngredientStatistics();
+            Statistics = DataManager.GetIngredients();
         }
     }
 }

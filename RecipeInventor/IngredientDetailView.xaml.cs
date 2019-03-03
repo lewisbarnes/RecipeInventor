@@ -17,7 +17,7 @@ using RecipeInventor.ViewModels;
 namespace RecipeInventor
 {
     /// <summary>
-    /// Interaction logic for IngredientDetailView.xaml
+    ///// Interaction logic for IngredientDetailView.xaml
     /// </summary>
     public partial class IngredientDetailView : Page
     {
@@ -26,7 +26,23 @@ namespace RecipeInventor
         {
             DataContext = ingredient;
             this.Ingredient = ingredient.OriginalObject;
+            this.Ingredient.CalculateIngredientComplements();
+            
             InitializeComponent();
+            IngredientComplements.ItemsSource = this.Ingredient.OtherIngredientComplements;
+            IngredientGraph ig = new IngredientGraph();
+            Recipe r = ig.GenerateRecipeFromGraph(Ingredient);
+            Console.Clear();
+            if(r == null)
+            {
+                Console.WriteLine("Couldn't generate recipe");
+                return;
+            }
+            foreach (RecipeIngredient ri in r.Ingredients)
+            {
+                Console.WriteLine(ri);
+            }
+
         }
 
         public void EditIngredient_Click(object sender, EventArgs e)

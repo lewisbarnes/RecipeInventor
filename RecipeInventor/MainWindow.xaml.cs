@@ -15,7 +15,6 @@ namespace RecipeInventor
     {
         public MainWindow()
         {
-            InitializeComponent();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -49,7 +48,6 @@ namespace RecipeInventor
 
         private void FlavoursLink_Click(object sender, RoutedEventArgs e)
         {
-            ContentFrame.NavigationService.Navigate(new Uri("IngredientsView.xaml", UriKind.Relative));
         }
 
         private void StatsLink_Click(object sender, RoutedEventArgs e)

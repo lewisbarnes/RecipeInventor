@@ -27,14 +27,8 @@
         <Label Background="SkyBlue" BorderThickness="0" Foreground="Black" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2">Edit Ingredient</Label>
         <Label Background="CadetBlue" Margin="0 0 0 3" BorderThickness="0" Grid.Row="2" Grid.Column="1">Name</Label>
         <Label Background="CadetBlue" Margin="0 0 0 3" BorderThickness="0" Grid.Row="3"  Grid.Column="1">Flavour Profiles</Label>
-        <Label Background="CadetBlue" Margin="0 0 0 3" BorderThickness="0" Grid.Row="4"  Grid.Column="1">Typical Quantity</Label>
         <TextBox Name="IngredientNameTextBox" VerticalContentAlignment="Center" Margin="0 0 0 3" BorderThickness="0" Grid.Row="2" Grid.Column="2" Text="{Binding Path=Name}"/>
-        <TextBox Name="FlavourProfilesTextBox" VerticalContentAlignment="Center" Margin="0 0 0 3" BorderThickness="0" Grid.Row="3" Grid.Column="2"/>
         <ComboBox Name="IngredientTypeCombo" Grid.Row="1" Grid.Column="2" Width="Auto" Margin="0 0 0 3" BorderThickness="0" SelectedItem="{Binding Path=Type}"></ComboBox>
-        <DockPanel Grid.Row="4" Grid.Column="2">
-            <TextBox Name="TypicalQuantityTextBox" Margin="0 0 0 3" BorderThickness="0" Width="250" />
-            <ComboBox x:Name="MeasuringUnitCombo" Margin="0 0 0 3" BorderThickness="0" Width="Auto" SelectedItem="{Binding Path=UnitOfMeasurement}"></ComboBox>
-        </DockPanel>
         <StackPanel Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="2">
             <TextBlock Name="InfoBlock" Background="White"/>
             <Button Background="LightSeaGreen" Name="btnSaveIngredient" Click="SaveIngredient_Click" BorderThickness="0">Save Ingredient</Button>

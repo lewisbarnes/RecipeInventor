@@ -14,19 +14,21 @@ namespace RecipeInventor
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                LiteCollection<Ingredient> ingredients = db.GetCollection<Ingredient>();
-                ingredients.EnsureIndex(x => x.Name);
-                LiteCollection<FlavourAttribute> flavourAttributes = db.GetCollection<FlavourAttribute>();
-                flavourAttributes.EnsureIndex(x => x.Description);
-                LiteCollection<IngredientStatistics> ingredientStatistics = db.GetCollection<IngredientStatistics>();
-                ingredientStatistics.EnsureIndex(x => x.Ingredient);
+
+                BsonMapper mapper = new BsonMapper();
+                mapper.Entity<Recipe>()
+                    .DbRef(x => x.Ingredients, "ingredients");
+
+                mapper.Entity<RecipeIngredient>()
+                    .DbRef(x => x.Ingredient, "ingredients");
+
             }
         }
         public static void SaveIngredient(Ingredient ingredient)
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                LiteCollection<Ingredient> ingredients = db.GetCollection<Ingredient>();
+                LiteCollection<Ingredient> ingredients = db.GetCollection<Ingredient>("ingredients");
                 ingredients.Insert(ingredient);
             }
         }
@@ -35,7 +37,7 @@ namespace RecipeInventor
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                LiteCollection<Ingredient> ingredients = db.GetCollection<Ingredient>();
+                LiteCollection<Ingredient> ingredients = db.GetCollection<Ingredient>("ingredients");
                 ingredients.Delete(x=> x.Name == name);
             }
         }
@@ -44,7 +46,7 @@ namespace RecipeInventor
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                bool ingredients = db.GetCollection<Ingredient>().Update(ingredient);
+                bool ingredients = db.GetCollection<Ingredient>("ingredients").Update(ingredient);
             }
         }
 
@@ -52,60 +54,50 @@ namespace RecipeInventor
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                var ingredients = db.GetCollection<Ingredient>().FindAll().OrderBy(x => x.Name);
+                var ingredients = db.GetCollection<Ingredient>("ingredients").FindAll().OrderBy(x => x.Name);
                 return ingredients.ToList();
             }
+        }
+
+        public static Ingredient GetIngredientByID(int id)
+        {
+            using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
+            {
+                Ingredient ingredient = db.GetCollection<Ingredient>("ingredients").FindById(id);
+                return ingredient;
+            }  
         }
 
         public static List<Recipe> GetRecipes()
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                IEnumerable<Recipe> recipes = db.GetCollection<Recipe>().FindAll();
+                IEnumerable<Recipe> recipes = db.GetCollection<Recipe>("recipes").FindAll();
                 return recipes.ToList();
             }
         }
 
-        public static IngredientStatistics GetIngredientStatistics(Ingredient ingredient)
+        public static void SaveRecipe(Recipe recipe)
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                return db.GetCollection<IngredientStatistics>().Find(x => x.Ingredient == ingredient).FirstOrDefault();
+                db.GetCollection<Recipe>("recipes").Insert(recipe);
             }
         }
 
-        public static void InsertIngredientStatistics(IngredientStatistics ingredient)
+        public static void DeleteRecipe(Recipe recipe)
         {
-            using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
+            using(LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                db.GetCollection<IngredientStatistics>().Insert(ingredient);
+                Console.WriteLine(recipe.Id);
+                db.GetCollection<Recipe>("recipes").Delete(x => x.Id == recipe.Id);
             }
         }
 
-        public static List<IngredientStatistics> GetIngredientStatistics()
-        {
-            using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
-            {
-                return db.GetCollection<IngredientStatistics>().FindAll().ToList();
-            }
-        }
 
-        public static void AddIngredientStatistics(IngredientStatistics ingredientStatistics)
-        {
-            using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
-            {
-                LiteCollection<IngredientStatistics> i = db.GetCollection<IngredientStatistics>();
-                i.Insert(ingredientStatistics);
-            }
-        }
 
-        public static void AddFlavourAttributes(FlavourAttribute flavourAttribute)
-        {
-            using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
-            {
-                var flavourAttributes = db.GetCollection<FlavourAttribute>();
-                flavourAttributes.Insert(flavourAttribute);
-            }
-        }
+
+
+
     }
 }

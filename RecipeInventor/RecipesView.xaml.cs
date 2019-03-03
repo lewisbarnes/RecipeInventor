@@ -26,5 +26,20 @@ namespace RecipeInventor
             InitializeComponent();
             RecipeList.ItemsSource = DataManager.GetRecipes();
         }
+
+        private void btnAddRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("AddRecipePage.xaml", UriKind.Relative));
+        }
+
+        private void btnRemoveRecipe_Click(object sender, RoutedEventArgs e)
+        {
+            DataManager.DeleteRecipe((Recipe)RecipeList.SelectedItem);
+        }
+
+        private void RecipeList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.Navigate(new RecipeIngredientsView((Recipe)RecipeList.SelectedItem));
+        }
     }
 }

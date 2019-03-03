@@ -26,7 +26,12 @@ namespace RecipeInventor
         public IngredientsView()
         {
             InitializeComponent();
+            foreach(Ingredient i in DataManager.GetIngredients())
+            {
+                i.CalculateIngredientComplements();
+            }
             IngredientList.ItemsSource = DataManager.GetIngredients();
+
         }
 
         private void AddIngredient_Click(object sender, RoutedEventArgs e)
