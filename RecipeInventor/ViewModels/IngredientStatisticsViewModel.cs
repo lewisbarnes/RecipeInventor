@@ -13,6 +13,10 @@ namespace RecipeInventor.ViewModels
         public IngredientStatisticsViewModel()
         {
             Statistics = DataManager.GetIngredients();
+            foreach(Ingredient i in Statistics)
+            {
+                i.RecalculateStatistics();
+            }
         }
     }
 }

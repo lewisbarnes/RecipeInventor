@@ -12,11 +12,11 @@ namespace RecipeInventor.Models
         public IngredientGraph()
         {
             List<Ingredient> ingredients = DataManager.GetIngredients();
-            foreach(Ingredient i in ingredients)
+            foreach (Ingredient i in ingredients)
             {
                 Nodes.Add(new IngredientNode(i));
             }
-            foreach(Ingredient i in ingredients)
+            foreach (Ingredient i in ingredients)
             {
                 if (i.OtherIngredientComplements.Count() > 0)
                 {
@@ -43,65 +43,75 @@ namespace RecipeInventor.Models
             }
         }
 
-        public Recipe GenerateRecipeFromGraph(Ingredient ingredient)
+        public GeneratedRecipe GenerateRecipeFromGraph(Ingredient ingredient)
         {
             // Find the node corresponding to the given ingredient
             IngredientNode startingNode = Nodes.Where(x => x.Value.Id == ingredient.Id).First();
 
+            // Set the current and previous nodes to startingNode as no other node to set the values to yet
             IngredientNode currentNode = startingNode;
             IngredientNode previousNode = startingNode;
+
+            // Order the nodes by cost, descending
             List<Edge> edges = currentNode.Edges.OrderByDescending(x => x.Cost).ToList();
-            
-            
-            Recipe returnRecipe = new Recipe();
+
+
+            GeneratedRecipe returnRecipe = new GeneratedRecipe();
+            // If the node has no edges, return null, signifying not enough data
             if (edges.Count() == 0)
             {
                 return null;
             }
+
+            // Get the first edge in the list of edges
             Edge mostCompatible = edges.First();
+           
+
             int loopCount = 0;
-            while (returnRecipe.Ingredients.Count() < 7)
+
+            while (returnRecipe.Ingredients.Count() < 12)
             {
-                if(currentNode == null)
+                if (currentNode.Edges.Count > 0)
                 {
-                    break;
-                }
-                if(currentNode.Edges.Count > 0)
-                {
-                    
+                    // If the recipe already contains the ingredient and the loopCount is less than 5
                     if (returnRecipe.Ingredients.Exists(x => x.Ingredient == currentNode.Value) && loopCount < 5)
                     {
                         loopCount++;
+                        // Break if loopCount more than or equal to 5
                         if(loopCount >= 5)
                         {
                             break;
                         }
+                        // Set the current node to the previous, node
                         currentNode = previousNode;
+
+                        // Get the edges from the current node
                         edges = currentNode.Edges.OrderByDescending(x => x.Cost).ToList();
+                        previousNode = currentNode;
+                        // If loopCount more than maximum index of edges
                         if (loopCount >= edges.Count() - 1)
                         {
-                            mostCompatible = edges.ElementAt(edges.Count()-1);
+                            // Set the mostCompatible edge to the last element
+                            mostCompatible = edges.ElementAt(edges.Count() - 1);
+                            currentNode = mostCompatible.To;
                         }
                         else
                         {
                             mostCompatible = edges.ElementAt(loopCount);
+                            currentNode = mostCompatible.To;
                         }
-                        currentNode = mostCompatible.To;
-                       
-                    }
-                    else if(loopCount >= 5)
-                    {
-                        break;
                     }
                     else
                     {
-                            returnRecipe.AddIngredient(new RecipeIngredient(currentNode.Value, currentNode.Value.MeanQuantity));
-                            currentNode = mostCompatible.To;
-                            previousNode = currentNode;
-                            mostCompatible = currentNode.Edges.OrderByDescending(x => x.Cost).First();
-                            loopCount = 0;
+                        returnRecipe.AddEdge(mostCompatible);
+                        returnRecipe.AddIngredient(new RecipeIngredient(currentNode.Value, currentNode.Value.MeanQuantity));
+                        currentNode = mostCompatible.To;
+                        previousNode = currentNode;
+                        mostCompatible = currentNode.Edges.OrderByDescending(x => x.Cost).First();
+                        
+                        loopCount = 0;
                     }
-                    
+
                 }
                 else
                 {
@@ -109,7 +119,6 @@ namespace RecipeInventor.Models
                 }
             }
             return returnRecipe;
-
         }
     }
 }

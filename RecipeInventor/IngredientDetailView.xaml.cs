@@ -26,22 +26,9 @@ namespace RecipeInventor
         {
             DataContext = ingredient;
             this.Ingredient = ingredient.OriginalObject;
-            this.Ingredient.CalculateIngredientComplements();
             
             InitializeComponent();
             IngredientComplements.ItemsSource = this.Ingredient.OtherIngredientComplements;
-            IngredientGraph ig = new IngredientGraph();
-            Recipe r = ig.GenerateRecipeFromGraph(Ingredient);
-            Console.Clear();
-            if(r == null)
-            {
-                Console.WriteLine("Couldn't generate recipe");
-                return;
-            }
-            foreach (RecipeIngredient ri in r.Ingredients)
-            {
-                Console.WriteLine(ri);
-            }
 
         }
 

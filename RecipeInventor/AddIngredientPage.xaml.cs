@@ -55,8 +55,6 @@ namespace RecipeInventor
                 InfoBlock.Text = sb.ToString();
             }
         }
-
-
     }
 
     public static class ExtensionMethods

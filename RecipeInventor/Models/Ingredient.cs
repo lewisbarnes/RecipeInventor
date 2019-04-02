@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using LiteDB;
 
 namespace RecipeInventor.Models
 {
@@ -21,9 +22,14 @@ namespace RecipeInventor.Models
         public double StandardDeviation { get; set; }
         public double RelativeFrequency { get; set; }
         public List<ComplementPair> OtherIngredientComplements { get; set; }
+        [BsonIgnore]
+        private static List<Recipe> recipes = DataManager.GetRecipes();
+        [BsonIgnore]
+        private static List<Ingredient> ingredients = DataManager.GetIngredients();
 
         public Ingredient()
         {
+
         }
         public void SetAttributes(string name, IngredientType type)
         {
@@ -41,12 +47,7 @@ namespace RecipeInventor.Models
         }
 
         public void CalculateMeanQuantity()
-        {
-            // Find recipes that contain the specified ingredient
-            List<Recipe> recipes = DataManager.GetRecipes().ToList();
-
-            // Set the count of the recipes containing the ingredient
-            
+        {   
             double runningTotal = 0;
             List<Recipe> containsThis = recipes.Where(x => x.Ingredients.Where(y => y.Ingredient.Id == this.Id).Any()).ToList();
             int numberOfRecipes = containsThis.Count;
@@ -58,18 +59,10 @@ namespace RecipeInventor.Models
 
             MeanQuantity = runningTotal / numberOfRecipes;
             NumberOfRecipes = numberOfRecipes;
-
-            DataManager.UpdateIngredient(this);
         }
 
         public void CalculateIngredientComplements()
         {
-            List<Recipe> recipes = DataManager.GetRecipes();
-
-            // Get all ingredients 
-            List<Ingredient> ingredients = DataManager.GetIngredients();
-
-            // Find recipes that contain this ingredient
             List<Recipe> containsThis = recipes.Where(x => x.Ingredients.Where(y => y.Ingredient.Id == this.Id).Any()).ToList();
 
             // Initialise the list
@@ -89,7 +82,6 @@ namespace RecipeInventor.Models
                     }
                 }
             }
-            DataManager.UpdateIngredient(this);
         }
 
         public void CalculateStandardDeviation()
@@ -98,7 +90,6 @@ namespace RecipeInventor.Models
             CalculateMeanQuantity();
 
             // Find recipes that contain the specified ingredient
-            List<Recipe> recipes = DataManager.GetRecipes();
             double runningTotal = 0;
             List<Recipe> containsThis = recipes.Where(x => x.Ingredients.Where(y => y.Ingredient.Id == this.Id).Any()).ToList();
             // Find matching ingredient in the recipe, get the square of the distance to the mean quantity, add to running total
@@ -110,14 +101,11 @@ namespace RecipeInventor.Models
             // Get the square root of the differences;
             StandardDeviation = Math.Sqrt(runningTotal / NumberOfRecipes);
 
-            DataManager.UpdateIngredient(this);
-
         }
 
         public void CalculateRelativeFrequency()
         {
             // Get all recipes
-            List<Recipe> recipes = DataManager.GetRecipes();
             int totalRecipes = recipes.Count();
             // Get the count of recipes that contain this ingredient
             List<Recipe> containsThis = recipes.Where(x => x.Ingredients.Where(y => y.Ingredient.Id == this.Id).Any()).ToList();
@@ -126,6 +114,14 @@ namespace RecipeInventor.Models
             // Divide the count of recipes including this ingredient by the count of all recipes
             RelativeFrequency = totalRecipesThisIngredient / totalRecipes;
 
+        }
+
+        public void RecalculateStatistics()
+        {
+            CalculateMeanQuantity();
+            CalculateRelativeFrequency();
+            CalculateStandardDeviation();
+            CalculateIngredientComplements();
         }
     }
 

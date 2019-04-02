@@ -33,12 +33,12 @@ namespace RecipeInventor
             }
         }
 
-        public static void DeleteIngredient(string name)
+        public static void DeleteIngredient(Ingredient ingredient)
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
                 LiteCollection<Ingredient> ingredients = db.GetCollection<Ingredient>("ingredients");
-                ingredients.Delete(x=> x.Name == name);
+                ingredients.Delete(x=> x.Id == ingredient.Id);
             }
         }
 
@@ -46,6 +46,7 @@ namespace RecipeInventor
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
+                ingredient.RecalculateStatistics();
                 bool ingredients = db.GetCollection<Ingredient>("ingredients").Update(ingredient);
             }
         }
@@ -54,8 +55,8 @@ namespace RecipeInventor
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                var ingredients = db.GetCollection<Ingredient>("ingredients").FindAll().OrderBy(x => x.Name);
-                return ingredients.ToList();
+                var ingredients = db.GetCollection<Ingredient>("ingredients").FindAll().OrderBy(x => x.Name).ToList();
+                return ingredients;
             }
         }
 
@@ -65,7 +66,7 @@ namespace RecipeInventor
             {
                 Ingredient ingredient = db.GetCollection<Ingredient>("ingredients").FindById(id);
                 return ingredient;
-            }  
+            }
         }
 
         public static List<Recipe> GetRecipes()
@@ -81,23 +82,25 @@ namespace RecipeInventor
         {
             using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
+
                 db.GetCollection<Recipe>("recipes").Insert(recipe);
+                foreach (RecipeIngredient ri in recipe.Ingredients)
+                {
+                    UpdateIngredient(ri.Ingredient);
+                }
             }
         }
 
         public static void DeleteRecipe(Recipe recipe)
         {
-            using(LiteDatabase db = new LiteDatabase("IngredientData.db"))
+            using (LiteDatabase db = new LiteDatabase("IngredientData.db"))
             {
-                Console.WriteLine(recipe.Id);
                 db.GetCollection<Recipe>("recipes").Delete(x => x.Id == recipe.Id);
+                foreach (RecipeIngredient ri in recipe.Ingredients)
+                {
+                    UpdateIngredient(ri.Ingredient);
+                }
             }
         }
-
-
-
-
-
-
     }
 }

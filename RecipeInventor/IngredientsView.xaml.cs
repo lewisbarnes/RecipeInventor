@@ -26,10 +26,6 @@ namespace RecipeInventor
         public IngredientsView()
         {
             InitializeComponent();
-            foreach(Ingredient i in DataManager.GetIngredients())
-            {
-                i.CalculateIngredientComplements();
-            }
             IngredientList.ItemsSource = DataManager.GetIngredients();
 
         }
@@ -43,7 +39,7 @@ namespace RecipeInventor
         {
             if (IngredientList.SelectedItem != null)
             {
-                var ingredient = IngredientList.SelectedItem.ToString();
+                var ingredient = (Ingredient)IngredientList.SelectedItem;
                 DataManager.DeleteIngredient(ingredient);
                 IngredientList.ItemsSource = DataManager.GetIngredients();
                 InfoBlock.Foreground = new SolidColorBrush(Colors.Green);

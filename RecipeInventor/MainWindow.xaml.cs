@@ -15,6 +15,7 @@ namespace RecipeInventor
     {
         public MainWindow()
         {
+            DataManager.InitialiseDatabase();
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
@@ -53,6 +54,11 @@ namespace RecipeInventor
         private void StatsLink_Click(object sender, RoutedEventArgs e)
         {
             ContentFrame.NavigationService.Navigate(new Uri("IngredientStatisticsView.xaml", UriKind.Relative));
+        }
+
+        private void GenLink_Click(object sender, RoutedEventArgs e)
+        {
+            ContentFrame.NavigationService.Navigate(new Uri("GenerateRecipePage.xaml", UriKind.Relative));
         }
     }
 }

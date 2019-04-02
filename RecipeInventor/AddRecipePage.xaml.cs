@@ -51,14 +51,12 @@ namespace RecipeInventor
                     return;
                 }
             }
-            DataManager.SaveRecipe(recipeToSave);
-            foreach(RecipeIngredient ri in recipeToSave.Ingredients)
+            foreach (RecipeIngredient ri in recipeToSave.Ingredients)
             {
-                ri.Ingredient.CalculateMeanQuantity();
-                ri.Ingredient.CalculateRelativeFrequency();
-                ri.Ingredient.CalculateStandardDeviation();
-                ri.Ingredient.CalculateIngredientComplements();
+                ri.Ingredient.RecalculateStatistics();
+                DataManager.UpdateIngredient(ri.Ingredient);
             }
+            DataManager.SaveRecipe(recipeToSave);
             InfoBlock.Foreground = new SolidColorBrush(Colors.Green);
             InfoBlock.Text = $"SUCCESSFULLY SAVED RECIPE \"{recipeToSave}\"";
         }

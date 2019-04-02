@@ -1,0 +1,33 @@
+﻿<Page x:Class="RecipeInventor.GenerateRecipePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:RecipeInventor"
+      mc:Ignorable="d" 
+      d:DesignHeight="411" d:DesignWidth="736"
+      Title="GenerateRecipePage">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label Background="SkyBlue" BorderThickness="0" Foreground="Black" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">Generate Recipe</Label>
+        <Label Grid.Row="1" Grid.Column="0" Background="CadetBlue">Choose a starting Ingredient</Label>
+        <ComboBox Name="IngredientsComboBox" Grid.Row="1"  Grid.Column="1" SelectionChanged="IngredientsComboBox_SelectionChanged"></ComboBox>
+        <Button Name="btnGenerateRecipe" Background="LightSeaGreen" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Click="btnGenerateRecipe_Click">Generate</Button>
+        <Label Grid.Row="3" Grid.Column="0" Background="CadetBlue">Ingredients</Label>
+        <Label Grid.Row="3" Grid.Column="1" Background="CadetBlue">Edge Statistics</Label>
+        <ListBox Name="IngredientsList" Grid.Row="4" Grid.Column="0" BorderThickness="0" Background="LightBlue" ></ListBox>
+        <ListBox Name="EdgesList" Grid.Row="4" Grid.Column="1" BorderThickness="0" Background="LightBlue" ></ListBox>
+        <Button Name="btnSaveRecipe" Background="LightSeaGreen" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="btnSaveRecipe_Click">Save Recipe</Button>
+    </Grid>
+</Page>

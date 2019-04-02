@@ -20,7 +20,7 @@ namespace RecipeInventor.Models
 
         public override string ToString()
         {
-            return $"{From.ToString()} -> {To.ToString()} | Cost: {Cost.ToString().PadLeft(50)}";
+            return $"{From.ToString()} -> {To.ToString()} | Cost: {Cost.ToString()}";
         }
     }
 }

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{934E106D-FDBD-4F1B-A6DB-B7061A644D29}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>RecipeInventor</RootNamespace>
     <AssemblyName>RecipeInventor</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -76,6 +76,9 @@
     <Compile Include="EditIngredientPage.xaml.cs">
       <DependentUpon>EditIngredientPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GenerateRecipePage.xaml.cs">
+      <DependentUpon>GenerateRecipePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="IngredientDetailView.xaml.cs">
       <DependentUpon>IngredientDetailView.xaml</DependentUpon>
     </Compile>
@@ -87,9 +90,9 @@
     </Compile>
     <Compile Include="Models\Edge.cs" />
     <Compile Include="Models\ErrorCodes.cs" />
+    <Compile Include="Models\GeneratedRecipe.cs" />
     <Compile Include="Models\IngredientGraph.cs" />
     <Compile Include="Models\IngredientNode.cs" />
-    <Compile Include="Models\IngredientStatistics.cs" />
     <Compile Include="Models\IngredientType.cs" />
     <Compile Include="Models\MeasuringUnits.cs" />
     <Compile Include="Models\Recipe.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="RecipesView.xaml.cs">
       <DependentUpon>RecipesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="RecipeWriter.cs" />
     <Compile Include="ViewModels\IngredientDetailViewModel.cs" />
     <Compile Include="ViewModels\IngredientListViewModel.cs" />
     <Compile Include="ViewModels\IngredientStatisticsViewModel.cs" />
@@ -113,6 +117,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="EditIngredientPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GenerateRecipePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

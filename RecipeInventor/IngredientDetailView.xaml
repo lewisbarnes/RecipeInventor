@@ -30,7 +30,7 @@
             <Label Content="{Binding Path=Quantity}"></Label>
         </StackPanel>
         <DataGrid Name="IngredientComplements" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" AutoGenerateColumns="False" Background="SkyBlue" 
-                  CanUserResizeRows="False" CanUserResizeColumns="False" IsHitTestVisible="False" VerticalScrollBarVisibility="Disabled" HeadersVisibility="Column">
+                  CanUserResizeRows="False" CanUserResizeColumns="False"  VerticalScrollBarVisibility="Auto" HeadersVisibility="Column">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ingredient Name" Binding="{Binding IngredientName}" Width="*" />
                 <DataGridTextColumn Header="Compatibility" Binding="{Binding Compatibility}" Width="*"/>
